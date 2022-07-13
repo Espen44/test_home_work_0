@@ -8,14 +8,14 @@ function getArrayParams(arr) {
   sum = 0;
 
   for (let i = 0; i < arr.length; i++){
-    if(arr[i] > max ){
-        max = arr[i] ;
+      if(arr[i] > max ){
+          max = arr[i] ;
+      }
+      if (arr[i] < min) {
+        min = arr[i]
+      } 
+      sum += arr[i];
     }
-    if (arr[i] < min) {
-      min = arr[i]
-    } 
-    sum += arr[i];
-}
   avg = +(sum / arr.length).toFixed(2);
   return { min: min, max: max, avg: avg };
 }
@@ -34,8 +34,8 @@ function makeWork(arrOfArr, func) {
   for ( let i = 0; i < arrOfArr.length; i++){
       const funcArr = func(arrOfArr[i]);
         if (funcArr > max){
-          max = funcArr;
-        }
+         max = funcArr;
+      }
     }
   return max;
 }
@@ -44,13 +44,13 @@ function makeWork(arrOfArr, func) {
 function worker2(arr) {
   let numMax = arr[0];
   let numMin = arr[0];
-  for (let i = 0; i < arr.length; i++){
-    if(arr[i] > numMax ){
-        numMax = arr[i];
+    for (let i = 0; i < arr.length; i++){
+      if(arr[i] > numMax ){
+          numMax = arr[i];
+      }
+      if (arr[i] < numMin) {
+        numMin = arr[i];
+      } 
     }
-    if (arr[i] < numMin) {
-      numMin = arr[i];
-    } 
-}
-    return Math.abs(numMax-numMin);
+  return Math.abs(numMax-numMin);
 }
