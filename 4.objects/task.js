@@ -22,6 +22,7 @@ console.log(stud1, stud2, stud3);
 
 
 Student.prototype.addMark = function (mark) {
+  Student.addMark = 'оценка';
   if(this.marks === undefined){ 
     this.marks = [mark];
     } else {
@@ -29,7 +30,7 @@ Student.prototype.addMark = function (mark) {
     }
 }
 
-stud1.addMark(4,3,3);
+stud1.addMark(4);
 
 
 
