@@ -34,7 +34,6 @@ class PrintEditionItem {
     get state () {
        return this._state;
     }
-
 };
 
 class Magazine extends PrintEditionItem {
@@ -70,5 +69,19 @@ class DetectiveBook extends Book {
     constructor( author, name, releaseDate, pagesCount){
         super(author, name, releaseDate, pagesCount);
         this.type = 'detective';
+    }
+}
+
+
+class Library{
+    constructor(name, books){
+        this.name = '';
+        this.books = [];
+    };
+
+   addBook(book) {
+        if(this.state > 30) {
+            this.books.push(book);
+        }
     }
 }
