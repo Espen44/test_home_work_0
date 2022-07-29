@@ -6,34 +6,33 @@ class PrintEditionItem {
         this.pagesCount = pagesCount;
         this.state = 100;
         this.type = null;
-    }
+    };
 
     fix() {
         let summState = this.state * 1.5;
+            if(this.state < 0) {
+                this.state = 0;
+            }
 
-        if(this.state < 0) {
-            this.state = 0;
+            if( summState > 100) {
+                summState = 100;
+                this.state = 100;
+            }  
+            this.state = summState;
+    }
+
+        set state (value) {
+            if (value < 0) {
+                return (this._state = 0);
+            } 
+            else if (value > 100){
+                return (this._state = 100);
+            } 
+                return (this._state = value);
         }
-
-        if( summState > 100) {
-            summState = 100;
-            this.state = 100;
-        }  
-        this.state = summState;
-    }
-
-    set state (value) {
-        if (value < 0) {
-            return (this._state = 0);
-        } 
-        else if (value > 100){
-            return (this._state = 100);
-        } 
-            return (this._state = value);
-    }
-    get state () {
-       return this._state;
-    }
+        get state () {
+        return this._state;
+        }
 };
 
 class Magazine extends PrintEditionItem {
@@ -72,16 +71,30 @@ class DetectiveBook extends Book {
     }
 }
 
-
-class Library{
-    constructor(name, books){
-        this.name = '';
+class Library {
+    constructor(str, books){
+        this.name = str;
         this.books = [];
-    };
+    }
 
-   addBook(book) {
-        if(this.state > 30) {
+        addBook(book) {
             this.books.push(book);
+}
+
+    findBookBy(type, value) {
+        let result = this.books.find(book => book[type] === value);
+        if(result) {
+            return result;
+        } else if (result === undefined) {
+            return null;
         }
     }
-}
+    giveBookByName(bookName) {
+        let searchElement = this.books.findIndex(book => book.name === bookName);
+        if (searchElement !== -1) {
+        return this.books.splice([searchElement], 1)[0];
+        } else {
+        return null;
+        }
+    }
+};
