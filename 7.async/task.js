@@ -1,14 +1,14 @@
 class AlarmClock {
     constructor(alarmCollection, timerId){
-        this.alarmCollection = [];
-        this.timerId = null;
+        this.alarmCollection = []; //массив со звонками.
+        this.timerId = null;   // id таймера без начального значения 
     }
 
     addClock( time, callback, id){
         if (!id){
             throw new Error('error text');
         }
-        const findAlarm = this.alarmCollection.find((elem) => elem.id === id)
+        const findAlarm = this.alarmCollection.find(elem => elem.id === id)
         if(findAlarm) {
             console.error('Будильник с таким id уже существует');
             return;
@@ -17,7 +17,7 @@ class AlarmClock {
     }
 
     removeClock(id) {
-        const newAllarmCollection = this.alarmCollection.filter((alarm) => alarm.id !== id)       
+        const newAllarmCollection = this.alarmCollection.filter(alarm => alarm.id !== id)       
         if (this.alarmCollection.length === newAllarmCollection.length) {
             return false;
         } else {
@@ -31,12 +31,22 @@ class AlarmClock {
     }
 
     start() {
-        const checkClock = (alarm) => {
+        function checkClock(alarm) {
             if( this.getCurrentFormattedTime() === alarm.time) {
-                
+                return this.callback;
+            } 
+            if(this.timerId === null) {
+                this.timerId = setInterval(alarm => this.alarmCollection.forEach(elem => checkClock(elem), 1000))
+                return this.timerId;
             }
          }
-    }
+     }
+     
+    //  stop(){
+    //     if(this.timerId){
+    //         clearInterval()
+    //     }
+    //  }
     
 }
 
